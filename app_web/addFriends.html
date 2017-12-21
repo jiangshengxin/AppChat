@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>添加好友</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<link rel="stylesheet" href="./css/addFriends.css">
+</head>
+<body>
+
+	<script type="text/javascript" src='./js/jquery.3.1.js' ></script>
+
+	<div id="add-top">
+		<div id='add-top-left' >
+			<a href="message.html"><img src="./icon/jt.png" alt=""></a>
+		</div>
+		<div id="add-top-center">添加好友</div>
+		<div id='add-top-right' ></div>
+	</div>
+
+	<ul id="add-options">
+		<li>条件查询</li>
+		<li>精确查询</li>
+		<li>系统推荐</li>
+	</ul>
+
+	<!-- 系统推荐 -->
+	<div id='recommend' style='display:none;' class="toggle_block">
+		
+		<ul id='recommend_block' >
+
+			<li>
+				<img src="./images/amani.png" alt="">
+				<div>
+					<div>蛋疼就割了吧</div>
+					<div><span style='color:pink;' >女</span> 16岁 河北</div>
+				</div>
+				<a href="javascript:void(0)">添加好友</a>
+			</li>
+
+			<li>
+				<img src="./images/amani.png" alt="">
+				<div>
+					<div>蛋疼就割了吧</div>
+					<div><span style='color:pink;' >女</span> 16岁 河北</div>
+				</div>
+				<a href="javascript:void(0)">添加好友</a>
+			</li>
+
+			<li>
+				<img src="./images/amani.png" alt="">
+				<div>
+					<div>蛋疼就割了吧</div>
+					<div><span style='color:pink;' >女</span> 16岁 河北</div>
+				</div>
+				<a href="javascript:void(0)">添加好友</a>
+			</li>
+
+			<li>
+				<img src="./images/amani.png" alt="">
+				<div>
+					<div>蛋疼就割了吧</div>
+					<div><span style='color:pink;' >女</span> 16岁 河北</div>
+				</div>
+				<a href="javascript:void(0)">添加好友</a>
+			</li>
+
+			<li>
+				<img src="./images/amani.png" alt="">
+				<div>
+					<div>蛋疼就割了吧</div>
+					<div><span style='color:pink;' >女</span> 16岁 河北</div>
+				</div>
+				<a href="javascript:void(0)">添加好友</a>
+			</li>
+
+		</ul>
+
+	</div>
+
+
+	<!-- 精确查询 -->
+	<div  class='toggle_block' id="accurate">
+		<div id="accurate_title">输入对方的用户名或账号</div>
+		<form action="#" method="#">
+			<input type="text">
+			<a href="javascript:void(0)">确认查询按钮(样式稍微有点丑，找时间改)</a>
+		</form>
+	</div>
+
+
+	<!-- 条件查询 -->
+	<div class="toggle_block"></div>
+
+	<script type="text/javascript">
+
+		$('.toggle_block:eq(2)').css('display','block');
+
+
+		var preIndex = 1;
+
+		$('#add-options>li').click(function(){
+
+			$('.toggle_block:eq('+$(this).index()+')').css('display','block').siblings('.toggle_block').css('display','none');
+
+			$(this).css({
+				'background-color':'rgba(104,199,238,0.95)',
+				'color':'white'
+			}).siblings().css({
+				'background-color':'white',
+				'color':'#43B9EA'
+			});
+
+		});
+
+
+
+	</script>
+
+</body>
+</html>

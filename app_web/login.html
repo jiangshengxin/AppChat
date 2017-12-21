@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>登录页面</title>
+	<!-- <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" name="viewport" /> -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<style>
+		/*@media only screen and (max-width: 600px){*/}
+		body{
+			padding:0px;
+			margin:0px;
+			background-color:#F0F0F0;
+			background-size:100% 100%;
+		}
+		#top{
+			position:absolute;
+			height:60px;
+		}
+		#top>div{
+			height:60px;
+			line-height:80px;
+			float:left;
+			font-size:21px;
+			margin-left:15px;
+			font-weight:bold;
+			color:#3EA8DC;
+			letter-spacing:2.5px;
+			font-family:微软雅黑;
+			text-shadow:0px 0px 10px #D3D3D3;
+		}
+		#top-icon{
+			width:60px;
+			float:left;
+		}
+		#login{
+			width:80%;
+			display:block;
+			margin:0 auto;
+		}
+		#login>div{
+			width:100%;
+			padding-top:10px;
+			padding-bottom:10px;
+			box-sizing:border-box;
+			position:relative;
+		}
+		#login>div:nth-of-type(1)>input{
+			padding-right:35px;
+			box-sizing:border-box;
+		}
+		#login>div>input{
+			height:45px;
+			width:100%;
+			border:1px solid transparent;
+			box-sizing:border-box;
+			padding-left:20px;
+			font-size:17px;
+			font-family:微软雅黑;
+		}
+		#clear{
+			position:absolute;
+			right:15px;
+			width:20px;
+			text-align:center;
+			height:30px;
+			line-height:30px;
+			font-size:30px;
+			top:17px;
+			display:none;
+			color:#A2A2A2;
+			cursor:pointer;
+		}
+		#submit{
+			width:100%;
+			height:45px;
+			background-color:#29A0F0;
+			display:block;
+			border-radius:5px;
+			text-align:center;
+			line-height:45px;
+			font-size:22px;
+			color:white;
+			text-decoration:none;
+			opacity:0.75;
+			box-shadow:1px 1px 2px transparent;
+			-webkit-tap-highlight-color:rgba(0,0,0,0);
+		}
+
+		#login>div:last-of-type{
+			height:40px;
+			overflow:hidden;
+		}
+		#login>div:last-of-type>a{
+			text-decoration:none;
+			color:#24ACFF;
+			overflow:hidden;
+		}
+		#login>div:last-of-type>a:nth-of-type(1){
+			float:left;
+		}
+		#login>div:last-of-type>a:nth-of-type(2){
+			float:right;
+		}
+
+		#Agreement{
+			width:100%;
+			margin:0 auto;
+			height:40px;
+			font-size:15px;
+			text-align:center;
+			line-height:40px;
+			overflow:hidden;
+			position:absolute;
+			bottom:5px;
+			letter-spacing:1px;
+			opacity:0.7;
+		}
+	</style>
+	<script src="js/jquery.3.1.js"></script>
+	<script type="text/javascript" src='./js/jQuery.cookie.js' ></script>
+</head>
+<body style="background-image: url('images/bg5.jpg')">
+<!-- <img id='background' src="./images/5.jpg" alt="" /> -->
+<div id='top' >
+	<img id='top-icon' src="./images/cloud2.png" alt="" />
+	<div>Cloud&nbsp;Are</div>
+</div>
+
+<form id = 'login' >
+	<div><input type="text" autofocus='autofocus' placeholder='某账号/用户名' id="username" ><span id='clear' >×</span></div>
+	<div><input type="password" placeholder='密码' id="password" ></div>
+	<a href="javascript:" id='submit' >登陆</a>
+	<div>
+		<a href="javascript:alert('目前找回密码功能暂未开放\n可以尝试联系管理员找回密码\nQQ:1348550820')">忘记密码？</a>
+		<a href="javascript:" id="login_add">新用户注册</a>
+		<a href="javascript:" id="login_add_d" style="color: #000; display: none;">申请注册</a>
+	</div>
+</form>
+
+<div id='Agreement' >
+	登陆即代表同意&nbsp;<a href="treaty.html" style='color:#34B4F5;text-decoration:none;' >服务条款</a>
+</div>
+
+<!-- login.js 文件 -->
+<script type='text/javascript' src='js/login.js' ></script>
+<script>
+	$('#login_add').click(function () {
+	    $('#login_add_d').show();
+		$('#username').attr('placeholder','你要注册的用户名');
+        $('#password').attr('placeholder','你要注册的密码');
+        alert('完成填写要求,点击[申请注册]');
+    })
+
+	//登录
+	$('#submit').click(function () {
+        obj['username'] = $('#username').val();
+        obj['password'] = $('#password').val();
+        if(start.submit)
+        {
+            alert('不要频繁操作\n耐心等待服务器回应');
+		}else
+		{
+		    start['submit'] = true;
+            $.ajax({
+                url:host+'index.php/index/login/user_login',
+                dataType:'jsonp',
+                data:obj,
+                success:function (e) {
+                    start['submit'] = false;
+                    if(e.error=='006')
+                    {
+                    	//登录成功后，将用户username存入cookie当中 - 存活时间为1天
+						$.cookie('username',obj['username'],{expires:1,path:'/'});
+
+                        location.href='message.html';
+                    }
+                },
+                error:function()
+                {
+                    start['submit'] = false;
+                    alert('无法链接到服务器');
+                }
+            })
+		}
+    })
+
+	//注册
+	$('#login_add_d').click(function () {
+		obj['username'] = $('#username').val();
+		obj['password'] = $('#password').val();
+		if(start.login_add_d)
+		{
+		    alert('不要频繁操作\n耐心等待服务器回应');
+        }else
+		{
+            start['login_add_d'] = true;
+            $.ajax({
+                url:host+'index.php/index/login/user_add',
+                dataType:'jsonp',
+                data:obj,
+                //async:false,
+                success:function (e) {
+                    alert(e.msg);
+                    start['login_add_d'] = false;
+                },
+                error:function()
+                {
+                    start['login_add_d'] = false;
+                    alert('无法链接到服务器');
+                }
+            })
+		}
+    })
+</script>
+</body>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<!-- 聊天界面(左边) -->
+	<link rel="stylesheet" href="./css/chat.css">
+	<style>
+		body{
+			margin:0;
+			padding:0;
+			overflow:hidden;
+		}
+	</style>
+</head>
+<body>
+	<!--聊天区域-->
+	<div id='chating' >
+		<div id='chat-top' >
+			<div onclick='window.location.href="./message.html"' id='chat-left' >
+				<img src="./icon/jt.png" alt="">
+				<div>1</div>
+			</div>
+			<div id='chat-center' >PHP技术交流群</div>
+			<img id='chat-right' src="./icon/Contact_book_icon.png" alt="">
+		</div>
+		<div id='chat-content' >
+			<div class='chat-lblock' >
+				<div class='user_lhead' ><img src="./images/2.jpg" alt=""></div>
+				<div class='user_lnickname' >tyc861嘻嘻嘻</div>
+				<div class='user_lmessage' >
+					<!-- ↓实现信息框小三角用的 -->
+						<div class='lTriangle' ></div>
+						<div class='ltnone' ></div>
+					<!-- ↑实现信息框小三角用的 -->
+
+					<!-- 发送的消息 -->
+					<span>朋友说公厕太少，他计划开发一款APP“嘀嘀拉屎”。….</span>
+				</div>
+			</div>
+
+			<div class='chat-lblock' >
+				<div class='user_lhead' ><img src="./images/2.jpg" alt=""></div>
+				<div class='user_lnickname' >tyc861嘻嘻嘻</div>
+				<div class='user_lmessage' >
+					<!-- ↓实现信息框小三角用的 -->
+						<div class='lTriangle' ></div>
+						<div class='ltnone' ></div>
+					<!-- ↑实现信息框小三角用的 -->
+
+					<!-- 发送的消息 -->
+					<span>朋友说公厕太少，他计划开发一款APP“嘀嘀拉屎”。….</span>
+				</div>
+			</div>
+
+
+
+			<div class='chat-rblock' >
+				<div class='user_rhead' ><img src="./images/3.jpg" alt=""></div>
+				<div class='user_rnickname' >tyc861嘻嘻嘻</div>
+				<div class='user_rmessage' >
+					<!-- ↓实现信息框小三角用的 -->
+						<div class='rTriangle' ></div>
+						<div class='rtnone' ></div>
+					<!-- ↑实现信息框小三角用的 -->
+
+					<!-- 发送的消息 -->
+					<span>真好笑....</span>
+				</div>
+			</div>
+
+		</div>
+		<div id='chat-bottom' >
+			<div id='send' >
+				<textarea name="message" id="send_mes"></textarea>
+				<div id='send_bt' >发送</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" src='js/chat.js' ></script>
+</body>
+</html>

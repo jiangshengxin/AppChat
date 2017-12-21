@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>服务条款</title>
+    <style>
+        *{ font-size: 12px;}
+        ul,li,ol{ list-style:none;}/*去掉列表的项目符号*/
+        a{ text-decoration:none;}/*去掉超链接的下划线*/
+    </style>
+    <script src="js/jquery.3.1.js"></script>
+</head>
+<body>
+<center>
+    <h3>服务条款</h3>
+</center>
+<ul id="treaty">
+    <li>加载中...</li>
+</ul>
+<center>
+    <a href="javascript:alert('拒绝你妹啊?\n用户信息已发送至服务器\n等待管理员处理')" style="color: red" id="">拒&nbsp;绝</a>
+    <a href="login.html" style="margin-left: 10%; color: green">同&nbsp;意</a>
+</center>
+</body>
+<script>
+    $.ajax({
+        url:host+'index.php/index/other/treaty_find',
+        dataType:'jsonp',
+        success:function (e) {
+            if(e.error=='055')
+            {
+                var li = '';
+                $.each(e.msg,function (k,v) {
+                    li += '<li>'+k+'.'+v+'</li>';
+                })
+                $('#treaty').html(li);
+            }else
+            {
+                alert(e.msg);
+            }
+        }
+    })
+
+    $('#repulse').click(function () {
+        $.ajax({
+            url:host+'index.php/index/other/sign',
+            dataType:'jsonp',
+            success:function (e) {
+                if(e.error!='058')
+                {
+                    alert('请求服务器失败');
+                }
+            }
+        })
+    })
+</script>
+</html>

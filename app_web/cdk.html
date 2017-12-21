@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>cdk兑换页面</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<!-- CSS文件 -->
+	<link rel="stylesheet" href="./css/cdk.css">
+</head>
+<body>
+	<!-- jQuery -->
+	<script type="text/javascript" src='js/jquery.3.1.js' ></script>
+	<!-- jQuery-Cookie -->
+	<script type="text/javascript" src='js/jQuery.cookie.js' ></script>
+
+	<div id="cdk-top">
+		<div id='cdk-top-left' >
+			<a href="message.html"><img src="./icon/jt.png" alt=""></a>
+		</div>
+		<div id="cdk-top-center">CDK兑换页面</div>
+		<div id='cdk-top-right' ></div>
+	</div>
+
+	<div id='cdk-ctt' >
+		<div id="convert">
+			<div>输入您的CDK兑换码</div>
+			<form action="">
+				<input id='cdk_inp' type="text" autofocus='autofocus' >
+			</form>
+			<a id='proving' href="javascript:void(0)">确认兑换</a>
+		</div>
+		<div id='state' >
+			<span>兑换声明</span>
+			<div id="line"></div>
+		</div>
+		<ol id="clause">
+			<li>您必须得啥啥啥</li>
+			<li>您还得啥啥啥</li>
+			<li>如果你想，请联系谁啥啥啥</li>
+			<li>如果你想，请联系谁啥啥啥</li>
+			<li>然后谢谢您的配合</li>
+		</ol>
+	</div>
+
+
+	<script type="text/javascript">
+
+		// 用户续费CDK
+		$('#proving').bind('click',function(){
+
+
+			var cdk = $('#cdk_inp').val();
+
+			//验证填写的input：是否可以转换为number类型 && 长度是否==12
+			if( ( parseInt(cdk) ) && ( cdk.length == 12 ) ){
+
+				//验证cookie中的username是否为空 > 3
+				if($.cookie('username').length > 3){
+
+					$.ajax({
+
+						url:host+'index.php/index/Cdk/cdk_update',
+
+						dataType:'jsonp',
+
+						type:'post',
+
+						data:{
+							c_num:cdk,
+							username:$.cookie('username')
+						},
+
+						success:function(e){
+							switch(e.error){
+								case '052':
+									alert('激活成功');
+								break;
+								case '051':
+									alert('系统错误');
+								break;
+								case '050':
+									alert('CDK错误');
+								break;
+								case '036':
+									alert('请正确提交哟~否则将会被拉入黑名单');
+								break;
+							}
+						},
+
+						error:function(){
+							alert('系统维护中，请稍后再试');
+						}
+
+					});
+
+				}else{
+					alert('请您登录');
+					window.location.href('./login.html');
+				}
+
+			}else{
+
+				alert('cdk兑换码格式不正确');
+				
+			}
+		});
+
+	</script>
+
+</body>
+</html>

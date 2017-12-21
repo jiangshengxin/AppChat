@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>主体</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+
+	<!-- message主体消息部分(中间) -->
+	<link rel="stylesheet" href="css/center.css">
+	<!-- message个人导航处(左边) -->
+	<link rel="stylesheet" href="css/left.css">
+	<!-- message个人资料卡(右边)暂时没这个页面 -->
+	<!-- <link rel="stylesheet" href="./css/right.css"> -->
+	<!-- 聊天界面(左边) -->
+	<link rel="stylesheet" href="css/chat.css">
+
+	<!-- 主体样式 -->
+	<style type='text/css' >
+
+		/*最底部选项卡动画（放大缩小动画）*/
+		@keyframes choose{
+			0%{transform:scale(1,1)}
+			25%{transform:scale(0.9,0.9)}
+			50%{transform:scale(0.85,0.85)}
+			75%{transform:scale(0.9,0.9)}
+			100%{transform:scale(1,1)}
+		}
+		@-moz-keyframes choose{
+			0%{transform:scale(1,1)}
+			25%{transform:scale(0.9,0.9)}
+			50%{transform:scale(0.85,0.85)}
+			75%{transform:scale(0.9,0.9)}
+			100%{transform:scale(1,1)}
+		}
+		@-webkit-keyframes choose{
+			0%{transform:scale(1,1)}
+			25%{transform:scale(0.9,0.9)}
+			50%{transform:scale(0.85,0.85)}
+			75%{transform:scale(0.9,0.9)}
+			100%{transform:scale(1,1)}
+		}
+		@-o-keyframes choose{
+			0%{transform:scale(1,1)}
+			25%{transform:scale(0.9,0.9)}
+			50%{transform:scale(0.85,0.85)}
+			75%{transform:scale(0.9,0.9)}
+			100%{transform:scale(1,1)}
+		}
+		/*动画结束*/
+
+
+		/*全局样式*/
+		body{
+			margin:0;
+			padding:0;
+			font-family:微软雅黑;
+			position:relative;
+			overflow:hidden;
+			background-color:#FCFCFC;
+		}
+		/*阻止左右滚动*/
+		body,html{
+			overflow-x:hidden;
+		}
+	</style>
+	<script src="js/jquery.3.1.js"></script>
+</head>
+<body  >
+	<div id = 'center' style='display:block;' >
+			<script type='text/javascript' >
+
+				// 获取屏幕宽度高度
+				var cWidth = window.screen.availWidth;
+				var cHeight = document.body.scrollHeight;
+
+			</script>
+
+			<!-- 顶部：左侧头像+消息+菜单(加号菜单) -->
+			<div id='top' >
+				<div id='head' >
+					<div id='news-icon' ></div>
+				</div>
+				<div id='title' >消息</div>
+				<div id='menu' >+</div>
+				<div id='menu_display' >
+					<div onclick='window.location.href="addFriends.html"' >添加好友</div>
+					<div>添加群组</div>
+					<div>最新活动</div>
+				</div>
+			</div>
+			<!-- 顶部：加号菜单的js文件 -->
+			<script type='text/javascript' src='./js/center_menu.js' ></script>
+			<!-- 搜索 -->
+			<div id ='search' >
+				<input type="text" placeholder='搜索用户/好友添加' id="search_user">
+			</div>
+			<!-- 消息区域 -->
+			<div id='message' >
+				<div class='m-block' >
+					<div class='m-zblock' >
+						<img class='pic-group' src="images/5.png" alt="">
+						<div class='m-content' >
+							<div class='m-first' >
+								<div>消息的标题</div>
+								<div>21:56</div>
+							</div>
+							<div class='m-second' >
+								<div>显示的最后一条消息</div>
+								<div>9</div>
+							</div>
+						</div>
+					</div>
+					<div class='handle' >
+						<a style='background-color:#B4B4B4' href="javascript:void(0)">置顶</a>
+						<a style='background-color:#FFA046' href="javascript:void(0)">标为未读</a>
+						<a style='background-color:#FF272C' href="javascript:void(0)">删除</a>
+					</div>
+				</div>
+
+				<div class='m-block' >
+					<div class='m-zblock' >
+						<img class='pic-group' src="images/5.png" alt="">
+						<div class='m-content' >
+							<div class='m-first' >
+								<div>消息的标题</div>
+								<div>21:56</div>
+							</div>
+							<div class='m-second' >
+								<div>显示的最后一条消息</div>
+								<div>9</div>
+							</div>
+						</div>
+					</div>
+					<div class='handle' >
+						<a style='background-color:#B4B4B4' href="#">置顶</a>
+						<a style='background-color:#FFA046' href="#">标为未读</a>
+						<a style='background-color:#FF272C' href="#">删除</a>
+					</div>
+				</div>
+
+				<div class='m-block' >
+					<div class='m-zblock' >
+						<img class='pic-group' src="images/5.png" alt="">
+						<div class='m-content' >
+							<div class='m-first' >
+								<div>消息的标题</div>
+								<div>21:56</div>
+							</div>
+							<div class='m-second' >
+								<div>显示的最后一条消息</div>
+								<div>9</div>
+							</div>
+						</div>
+					</div>
+					<div class='handle' >
+						<a style='background-color:#B4B4B4' href="#">置顶</a>
+						<a style='background-color:#FFA046' href="#">标为未读</a>
+						<a style='background-color:#FF272C' href="#">删除</a>
+					</div>
+				</div>
+			</div>
+
+			<!-- 联系人区域 -->
+			<div id='contacts' style='display:none' >
+
+				<!-- 可能认识的人 -->
+				<div id = 'maybe' style="display: none;">
+					<div id='maybe-title' >发现你可能认识的人</div>
+					<div id='maybe-person' >
+						<div id='maybe-left' >
+							<img src="images/2.jpg" alt="">
+							<div id='maybe-mes' >
+								<div>
+									<span id="maybe-mes_username">用户名</span>
+									<span style='color:#F92672;' id="maybe-mes_sex">女 20</span>
+								</div>
+								<div id="maybe-mes_email">email:</div>
+								<div id="maybe-mes_sign">苟利国家生死已....</div>
+							</div>
+						</div>
+						<div>
+							<a href="javascript:" id="maybe-mes_friend_add" uid="0">添加</a>
+						</div>
+					</div>
+				</div>
+				<script>
+					//添加用户
+					$('#maybe-mes_friend_add').click(function () {
+						obj['fid'] = $(this).attr('uid');
+						obj['fname'] = $('#maybe-mes_username').html();
+						if(obj['fid']>0)
+						{
+							$.ajax({
+								url:host+'index.php/index/friend/friend_add',
+								data:obj,
+								dataType:'jsonp',
+								success:function (e) {
+                                    alert(e.msg);
+                                    $('#maybe').hide();
+                                }
+							})
+						}
+                    })
+
+                    //搜索用户/好友添加
+                    $('#search_user').blur(function () {
+                        obj['username'] = $(this).val();
+                        obj['uid'] = 0;
+                        if(obj['username'].length > 0)
+                        {
+                            $.ajax({
+                                url:host+'index.php/index/user/user_find',
+                                dataType:'jsonp',
+                                data:obj,
+                                success:function (e) {
+                                    if(e.error=='038')
+                                    {
+                                        $('#maybe').show();
+										$('#maybe-mes_username').html(e.msg.username);
+										$('#maybe-mes_sex').html(e.msg.sex+'&nbsp;'+e.msg.age);
+										$('#maybe-mes_email').html(e.msg.email);
+										$('#maybe-mes_sign').html(e.msg.sign);
+										$('#maybe-mes_friend_add').attr('uid',e.msg.p_uid);
+                                    }else
+                                    {
+                                        $('#maybe').hide();
+                                        alert(e.msg);
+                                    }
+                                }
+                            })
+                        }else
+						{
+                            $('#maybe').hide();
+						}
+                    })
+				</script>
+
+				<!-- 新朋友按钮 -->
+				<!--<div id='newFriend' >
+					<span>新朋友</span>
+					<img src="./icon/jt.png" alt="">
+				</div>-->
+
+				<!-- 选项卡 (好友-群) -->
+				<ul id='z-choose' >
+					<li>
+						<span dis='z-display' >好友</span>
+					</li>
+					<li>
+						<span dis='g-display' >群</span>
+					</li>
+					<!--<li>
+						<span dis='g-display' >讨论组</span>
+					</li>-->
+					<div id='b-border' ></div>
+				</ul>
+
+				<!-- 好友/群显示 -->
+				<div class='concat-block' id = 'z-display' >
+					<div class='z-group' >
+						<div state='close' class='z-title' id="friend_list">
+							<div>
+								<img src="./icon/jt.png" alt="">
+								<span>我的好友</span>
+							</div>
+							<span id="friend_Stat">1/1</span>
+						</div>
+						<div class='p-every' id="friend_list_a">
+							<div class='u-every' >
+								<img src="images/2.jpg" alt="">
+								<div>
+									<div>河豚&nbsp;<img src="" alt="图片标识待添加"></div>
+									<div>苟利国家生死已...</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class='z-group' >
+						<div state='close' class='z-title' >
+							<div>
+								<img src="./icon/jt.png" alt="">
+								<span>谁添加了我</span>
+							</div>
+							<span>24/96</span>
+						</div>
+						<div class='p-every'>
+
+							<div class='u-every' >
+								<img src="./images/2.jpg" alt="">
+								<div>
+									<div>河豚&nbsp;<img src="" alt="图片标识待添加"></div>
+									<div>我相信，梦能到达的地方，总会....</div>
+								</div>
+							</div>
+
+							<div class='u-every' >
+								<img src="./images/2.jpg" alt="">
+								<div>
+									<div>河豚&nbsp;<img src="" alt="图片标识待添加"></div>
+									<div>我相信，梦能到达的地方，总会....</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+				<script>
+					//好友列表
+					$('#friend_list').click(function () {
+						$.ajax({
+							url:host+'index.php/index/friend/friend_list',
+							dataType:'jsonp',
+							success:function (e) {
+							    if(e.error=='013')
+							    {
+							        $('#friend_list_a').html('');
+							        var sum = 0;
+							        var online = 0;
+									$.each(e.msg,function (i,v) {
+										console.log(1);
+                                        if(v.start==1)
+                                        {
+											var start = '<font color="green">在线</font>';
+											online = online + 1;
+                                        }else
+										{
+                                            var start = '<font color="gray">离线</font>';
+										}
+
+										sum = sum + 1;
+
+										var str =
+											'<div class="u-every" >' +
+											'<img src="images/2.jpg" alt="'+v.username+'">' +
+											'<div>' +
+											'<div>'+v.username+'&nbsp;' +
+											'<img src="" alt="'+v.fname+'">' +
+											'</div> ' +
+											'<div>苟利国家生死已...('+start
+											+')</div> </div> </div>';
+                                        $('#friend_list_a').append(str);
+                                    })
+                                    $('#friend_Stat').html(online+'/'+sum);
+								}else
+								{
+								    alert(e.msg)
+								}
+								console.dir(e);
+                            }
+						})
+                    })
+				</script>
+
+				<!-- 群组显示 -->
+				<div class='concat-block' id = 'g-display' style='display:block;' >
+					<div id='createGroup' >
+						<span>创建群</span>
+						<img src="./icon/sum.png" alt="">
+					</div>
+
+					<div class='g-block' >
+						<div state='close' class='g-title' >
+							<div>
+								<img src="./icon/jt.png" alt="">
+								<span>置顶群</span>
+							</div>
+							<span>123</span>
+						</div>
+						<div class='g-every' ></div>
+					</div>
+
+					<div class='g-block' >
+						<div state='close' class='g-title' >
+							<div>
+								<img src="./icon/jt.png" alt="">
+								<span>我加入的群</span>
+							</div>
+							<span>123</span>
+						</div>
+						<div class='g-every' >
+							<div class='gs-every' >
+								<img src="./images/2.jpg" alt="">
+								<span>PHP技术交流群</span>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- 讨论组显示 -->
+				<!--<div class='concat-block' id = 'g-display_d' style='display:block;' >
+					<div id='createGroup_d' >
+						<span>创建群</span>
+						<img src="./icon/sum.png" alt="">
+					</div>
+
+					<div class='g-block' >
+						<div state='close' class='g-title' >
+							<div>
+								<img src="./icon/jt.png" alt="">
+								<span>置顶群</span>
+							</div>
+							<span>123</span>
+						</div>
+						<div class='g-every' ></div>
+					</div>
+
+					<div class='g-block' >
+						<div state='close' class='g-title' >
+							<div>
+								<img src="./icon/jt.png" alt="">
+								<span>我加入的群</span>
+							</div>
+							<span>123</span>
+						</div>
+						<div class='g-every' >
+							<div class='gs-every' >
+								<img src="./images/2.jpg" alt="">
+								<span>PHP技术交流群</span>
+							</div>
+						</div>
+					</div>
+				</div>-->
+
+			</div>
+
+		<!-- 底部菜单栏 -->
+		<div id='bottom' >
+
+			<div class='b-block' >
+				<div class='b-content' >
+					<img class='b-image' src="./icon/mes1.png" alt="">
+					<div class='b-title' >消息</div>
+				</div>
+			</div>
+
+			<div class='b-block' >
+				<div class='b-content' >
+					<img class='b-image' src="./icon/user1.png" alt="">
+					<div class='b-title' >联系人</div>
+				</div>
+			</div>
+
+			<div class='b-block' >
+				<div class='b-content' >
+					<img class='b-image' src="./icon/star1.png" alt="">
+					<div class='b-title' >动态</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<!-- 左边个人选项(点击头像左边滑入的) -->
+	<div id='person-option'>
+		<div id='p-up' >
+			<img id='p-bg' src="./images/bg5.jpg" alt="">
+			<div id='cp1' >
+				<div>
+					<img src="./icon/Calendar_icon.png" alt="">
+					<span>签到</span>
+				</div>
+				<img src="./icon/Out_icon.png" alt="">
+			</div>
+			<div id='cp2' >
+				<div onclick='window.location.href="./update.html"' class='p-up2'>
+					<img src="./images/2.jpg" alt="">
+					<span>Wrong861</span>
+				</div>
+				<div class='p-up3'>
+					当前等级：<img src="./icon/Brightness_icon.png" alt="">
+				</div>
+				<div class='p-up4'>PHP是世界上最好的语言</div>
+			</div>
+		</div>
+		<div id='p-down' >
+			<div id='p-options' >
+				<div>
+					<img src="./icon/Attachment_icon.png" alt="">
+					<span>个性装扮</span>
+				</div>
+				<div>
+					<img src="./icon/Attachment_icon.png" alt="">
+					<span>个性装扮</span>
+				</div>
+				<div>
+					<img src="./icon/Attachment_icon.png" alt="">
+					<span>个性装扮</span>
+				</div>
+				<div>
+					<img src="./icon/Attachment_icon.png" alt="">
+					<span>个性装扮</span>
+				</div>
+				<div>
+					<img src="./icon/Attachment_icon.png" alt="">
+					<span onclick="window.location.href='cdk.html'"  >个性装扮</span>
+				</div>
+				<div>
+					<img src="./icon/Time_icon.png" alt="">
+					<span onclick="window.location.href='cdk.html'"  >激活/续费CDK</span>
+				</div>
+			</div>
+			<div id='p-btm' >
+				<div>
+					<img style='width:30px' src="./icon/Gear_icon.png" alt="">
+					<span>咔擦</span>
+				</div>
+				<div>
+					<img style='width:30px' src="./icon/Gear_icon.png" alt="">
+					<span>设置</span>
+				</div>
+				<div>
+					<div style='color:#2CC6E8' >19度</div>
+					<div style='color:#2CC6E8' >北京</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div id='context' >
+		<a>置顶</a>
+		<a>标为未读</a>
+		<a>删除</a>
+		<a>取消操作</a>
+	</div>
+
+	<!-- 用户选项js文件 -->
+	<script type='text/javascript' src='js/person_option.js' ></script>
+
+	<!-- 每条消息的js(操作效果 标记-未读-删除等) -->
+	<script type='text/javascript' src='js/mes.js' ></script>
+
+	<!-- bottom菜单栏(3) js文件 -->
+	<script type='text/javascript' src='js/bottom.js' ></script>
+
+	<!-- chating聊天ing js文件 -->
+	<!--<script type='text/javascript' src='js/chat.js' ></script>-->
+</body>
+</html>
