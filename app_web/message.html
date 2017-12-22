@@ -3,8 +3,14 @@
 <head>
 	<meta charset="UTF-8">
 	<title>主体</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+	<!-- mobile视口 -->
 	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+	<!-- layer弹出层插件 -->
+	<script type="text/javascript" src='js/layer_mobile/layer.js' ></script>
+	<link rel="stylesheet" href="js/layer_mobile/need/layer.css">
 
 	<!-- message主体消息部分(中间) -->
 	<link rel="stylesheet" href="css/center.css">
@@ -345,9 +351,15 @@
                                     $('#friend_Stat').html(online+'/'+sum);
 								}else
 								{
-								    alert(e.msg)
+									layer.open({
+									    content: e.msg
+									    ,btn: ['立即登录']
+									    ,time: 2 //2秒后自动关闭
+									    ,yes: function(index){
+									    	location.href="./login.html";
+									    }
+									});
 								}
-								console.dir(e);
                             }
 						})
                     })

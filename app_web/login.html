@@ -6,6 +6,11 @@
 	<!-- <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" name="viewport" /> -->
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 	<meta name="apple-mobile-web-app-capable" content="yes" />
+	
+	<!-- layer弹出层插件 -->
+	<script type="text/javascript" src='js/layer_mobile/layer.js' ></script>
+	<link rel="stylesheet" href="js/layer_mobile/need/layer.css">
+
 	<style>
 		/*@media only screen and (max-width: 600px){*/}
 		body{
@@ -159,7 +164,11 @@
         obj['password'] = $('#password').val();
         if(start.submit)
         {
-            alert('不要频繁操作\n耐心等待服务器回应');
+            layer.open({
+			    content: '不要频繁操作\n耐心等待服务器回应'
+			    ,skin: 'msg'
+			    ,time: 2 
+			  });
 		}else
 		{
 		    start['submit'] = true;
@@ -175,12 +184,28 @@
 						$.cookie('username',obj['username'],{expires:1,path:'/'});
 
                         location.href='message.html';
+                    }else if(e.error == '004'){
+                    	layer.open({
+						    content: '账户不存在'
+						    ,skin: 'msg'
+						    ,time: 2 
+						  });
+                    }else if(e.error == '007'){
+                    	layer.open({
+                    		content: e.msg
+                    		,skin: 'msg'
+                    		,time: 2
+                    		});
                     }
                 },
                 error:function()
                 {
                     start['submit'] = false;
-                    alert('无法链接到服务器');
+                    layer.open({
+					    content: '无法链接到服务器'
+					    ,skin: 'msg'
+					    ,time: 2 
+					  });
                 }
             })
 		}
@@ -192,7 +217,11 @@
 		obj['password'] = $('#password').val();
 		if(start.login_add_d)
 		{
-		    alert('不要频繁操作\n耐心等待服务器回应');
+			 layer.open({
+			    content: '不要频繁操作\n耐心等待服务器回应'
+			    ,skin: 'msg'
+			    ,time: 2 
+			  });
         }else
 		{
             start['login_add_d'] = true;
@@ -208,7 +237,11 @@
                 error:function()
                 {
                     start['login_add_d'] = false;
-                    alert('无法链接到服务器');
+                    layer.open({
+					    content: '无法链接到服务器'
+					    ,skin: 'msg'
+					    ,time: 2 
+					  });
                 }
             })
 		}
