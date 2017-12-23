@@ -110,7 +110,7 @@ class Login
     /*
      * 判断用户是否存在
      * */
-    public function user__find()
+    public function user_find()
     {
         $reg = Db::table('user')->where('username',$this->data['username'])->column('u_id');
         if(count($reg))
