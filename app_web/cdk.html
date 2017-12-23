@@ -5,6 +5,12 @@
 	<title>cdk兑换页面</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 	<meta name="apple-mobile-web-app-capable" content="yes" />
+
+	
+	<!-- layer弹出层插件 -->
+	<script type="text/javascript" src='js/layer_mobile/layer.js' ></script>
+	<link rel="stylesheet" href="js/layer_mobile/need/layer.css">
+
 	<!-- CSS文件 -->
 	<link rel="stylesheet" href="./css/cdk.css">
 </head>
@@ -25,8 +31,15 @@
 	<div id='cdk-ctt' >
 		<div id="convert">
 			<div>输入您的CDK兑换码</div>
-			<form action="">
-				<input id='cdk_inp' type="text" autofocus='autofocus' >
+			<form id='cdk-form' action="">
+				<div>
+					<label for="username">用户名</label>
+					<input id="username" type="text" autofocus="autofocus" >
+				</div>
+				<div>
+					<label for="cdk_inp">CDK</label>
+					<input id='cdk_inp' type="text" >
+				</div>
 			</form>
 			<a id='proving' href="javascript:void(0)">确认兑换</a>
 		</div>
@@ -46,64 +59,88 @@
 
 	<script type="text/javascript">
 
-		// 用户续费CDK
+
+		// $.ajax({
+		// 	url: host + 'index.php/index/cdk/cdk_add',
+		// 	type:'get',
+		// 	dataType:'jsonp',
+		// 	data:{
+		// 		num:10,
+		// 	}
+		// });
+
+		// 用户续费CDK按钮
 		$('#proving').bind('click',function(){
 
-
 			var cdk = $('#cdk_inp').val();
+			var username = $('#username').val();
 
-			//验证填写的input：是否可以转换为number类型 && 长度是否==12
-			if( ( parseInt(cdk) ) && ( cdk.length == 12 ) ){
-
-				//验证cookie中的username是否为空 > 3
-				if($.cookie('username').length > 3){
-
-					$.ajax({
-
-						url:host+'index.php/index/Cdk/cdk_update',
-
-						dataType:'jsonp',
-
-						type:'post',
-
-						data:{
-							c_num:cdk,
-							username:$.cookie('username')
-						},
-
-						success:function(e){
-							switch(e.error){
-								case '052':
-									alert('激活成功');
-								break;
-								case '051':
-									alert('系统错误');
-								break;
-								case '050':
-									alert('CDK错误');
-								break;
-								case '036':
-									alert('请正确提交哟~否则将会被拉入黑名单');
-								break;
-							}
-						},
-
-						error:function(){
-							alert('系统维护中，请稍后再试');
-						}
-
-					});
-
-				}else{
-					alert('请您登录');
-					window.location.href('./login.html');
-				}
-
-			}else{
-
-				alert('cdk兑换码格式不正确');
-				
+			// 检测cdk格式
+			if( (!parseInt(cdk)) || ( cdk.length != 12 ) ){
+				layer.open({
+					content:'请您输入正确格式的cdk'
+					,skin: 'msg'
+					,time: 2
+				});
+				return false;
 			}
+
+			// 检测用户是否存在
+			$.ajax({
+				url:host + 'index.php/index/login/user_find',
+				type:'get',
+				dataType:'jsonp',
+				data:{
+					username:username
+				},
+				success:function(e){
+					console.log(e.error);
+					if(e.error == "023"){
+						layer.open({
+							content:'用户不存在，请检查您输入的用户名'
+							,skin: 'msg'
+							,time: 2
+						});
+					}else{
+					 //询问框 ---> 要充值的用户名是否正确
+					  layer.open({
+					  	content: '您确认要给用户 '+username+' 续费吗'
+					    ,btn: ['确认', '取消']
+
+					    // 当点击确认时
+					    ,yes: function(index){
+					    	$.ajax({
+								url:host+'index.php/index/Cdk/cdk_update',
+								dataType:'jsonp',
+								type:'get',
+								data:{
+									c_num:cdk,
+									username:username
+								},
+								success:function(e){
+									if( e.error == 052 ){
+										layer.open({
+										  content: e.msg
+										  ,btn: '确认'
+										});
+									}else{
+										layer.open({
+										  content: e.msg
+										  ,btn: '确认'
+										});
+									}
+								},
+								error:function(){
+									alert('系统维护中，请稍后再试');
+								}
+
+							});
+					    }
+					  });
+					}
+				}
+			});
+
 		});
 
 	</script>

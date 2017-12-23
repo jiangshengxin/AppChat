@@ -19,6 +19,7 @@ class Cdk
         //接值
         $this->data = Request::instance()->get();
     }
+    
     public function __destruct()
     {
         if(isset($this->data['callback'])&&$this->return)
@@ -54,6 +55,7 @@ class Cdk
             }
         }else
         {
+            // $this->return = ['error'=>'036','msg'=>'参数有误'];
             $this->return = ['error'=>'036','msg'=>'参数有误'];
         }
     }
