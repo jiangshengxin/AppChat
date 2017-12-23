@@ -184,6 +184,7 @@
 						$.cookie('username',obj['username'],{expires:1,path:'/'});
 
                         location.href='message.html';
+
                     }else if(e.error == '004'){
                     	layer.open({
 						    content: '账户不存在'
@@ -191,11 +192,15 @@
 						    ,time: 2 
 						  });
                     }else if(e.error == '007'){
-                    	layer.open({
-                    		content: e.msg
-                    		,skin: 'msg'
-                    		,time: 2
-                    		});
+                    	//询问是否充值
+						  layer.open({
+						    content: e.msg
+						    ,btn: ['确认', '取消']
+						    ,yes: function(index){
+						      location.href='./cdk.html';
+						      layer.close(index);
+						    }
+						  });
                     }
                 },
                 error:function()
