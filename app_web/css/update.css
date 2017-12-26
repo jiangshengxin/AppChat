@@ -71,8 +71,14 @@
 	width:120px;
 	height:120px;
 	margin:0 auto;
-	border:1px solid red;
 	border-radius:120px;
+	position:relative;
+	overflow:hidden;
+}
+#photo_inp{
+	position:absolute;
+	left:0px;
+	top: 0px;
 }
 #user_photo>input{
 	display:block;
@@ -105,4 +111,35 @@ textarea{
 	margin-top:11px;
 	color:#505050;
 	-webkit-tap-highlight-color:rgba(0,0,0,0);
+}
+
+
+.label{
+	width:120px !important;
+}
+
+.update_photo{
+	width:360px;
+	height:360px;
+	display:none;
+}
+
+.updatePhotoBtn{
+	width:80px;
+	height:30px;
+	display:inline-block;
+	background-color:rgba(58,149,255,0.7);
+	line-height:30px;
+	text-decoration:none;
+	position:absolute;
+	color:white;
+	border-radius:3px;
+	top:20px;
+}
+.cancal-updatePhoto{
+	left:20px;
+}
+.allow-updatePhoto{
+	position:absolute;
+	right:20px;
 }
