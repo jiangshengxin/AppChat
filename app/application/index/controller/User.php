@@ -5,6 +5,7 @@ namespace app\index\controller;
 
 
 use think\Db;
+use think\request;
 
 /*
  * 用户信息
@@ -40,16 +41,22 @@ class User extends Exam
      * */
     public function user_update()
     {
-        $user_data = [
-            'user'=>$this->data['user'],
-            'email'=>$this->data['email'],
-            'qq'=>$this->data['qq'],
-            'tel'=>$this->data['tel'],
-            'age'=>$this->data['age'],
-            'sign'=>$this->data['sign'],
-            'address'=>$this->data['address']
-        ];
-        if(count($user_data)==7)
+
+        // 接收该用户所有修改信息
+        // $user_data = [
+        //     'user'=>$this->data['user'],
+        //     'email'=>$this->data['email'],
+        //     'qq'=>$this->data['qq'],
+        //     'tel'=>$this->data['tel'],
+        //     'age'=>$this->data['age'],
+        //     'sign'=>$this->data['sign'],
+        //     'address'=>$this->data['address']
+        // ];
+
+        // 修改指定项
+        $user_data = Request::instance()->except(['callback','_']);
+
+        if($user_data)
         {
             $reg = Db::table('user_data')->where(['p_uid'=>$this->user['u_id']])->update($user_data);
             if($reg)
