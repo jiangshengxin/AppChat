@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+
+	<link rel="stylesheet" href="./css/update.css">
+
+	<script type="text/javascript" src='js/jquery.3.1.js' ></script>
+
+	<!-- layer弹出层插件 -->
+	<script type="text/javascript" src='js/layer_mobile/layer.js' ></script>
+	<link rel="stylesheet" href="js/layer_mobile/need/layer.css">
+
+	<!-- cropper剪裁插件 -->
+	<script type="text/javascript" src='js/cropper/cropper.js' ></script>
+	<link rel="stylesheet" href="css/plugins/cropper.css">
+
+	<style>
+		body{
+			padding:0;
+			margin:0;
+		}
+	</style>
+</head>
+<body>
+	
+	<script type="text/javascript">
+
+		
+
+	</script>
+
+	<div id = 'update' >
+		<div id='u-top' >
+			<div style='-webkit-tap-highlight-color:rgba(0,0,0,0)' onclick='window.location.href="./message.html"' >
+				<img  src="./icon/jt.png" alt="">
+				<span>返回</span>
+			</div>
+			<div>编辑资料</div>
+		</div>
+		<form action="" method='post'>
+			<div id='u-head'>
+				<div id="user_photo">
+					<input id='photo_inp' style='opacity:0;' type="button" />
+					<img style='width:100%;height:100%;' src="./images/5.png" alt="">
+				</div>
+				<div>点击修改您的头像</div>
+			</div>
+			<div class='inp' id='u-autograph' >
+				<div >签名</div>
+				<textarea class='inp' name="" id="sign" ></textarea>
+			</div>
+			<div class='inp' id='u-nickname' >
+				<div>昵称</div>
+				<input class='inp' id='user' type="text">
+			</div>
+			<div class='inp' id='u-sex' >
+				<div>性别</div>
+				<select class='inp' name="sex" id="sex">
+					<option value="男">男</option>
+					<option value="女">女</option>
+				</select>
+			</div>
+			<!-- <div id='u-birthday' >
+				<div>生日</div>
+				<select id='year' name="" id="">
+				</select>
+				<select id='month' name="" id="">
+				</select>
+				<select id='day' name="" id="">
+				</select>
+				<script type='text/javascript' src='./js/birthday.js' ></script>
+			</div> -->
+			<div class='inp' id='u-age' >
+				<div>年龄</div>
+				<input class='inp' id='age' type="text">
+			</div>
+			<!-- <div id='u-occupation' >
+				<div>职业</div>
+				<input type="text">
+			</div> -->
+			<!-- <div id='u-company' >
+				<div>公司</div>
+				<input type="text">
+			</div> -->
+			<!-- <div id='u-scholl' >
+				<div>学校</div>
+				<input type="text">
+			</div> -->
+			<div class='inp' id='u-location' >
+				<div>所在地</div>
+				<input class='inp' id='address' style='margin-left:25px' type="text">
+			</div>
+			<!-- <div id='u-hometown' >
+				<div>家乡</div>
+				<input type="text">
+			</div> -->
+			<div id='u-email' >
+				<div>邮箱</div>
+				<input class='inp' id='email' type="email">
+			</div>
+			<div class='inp' >
+				<div>手机号</div>
+				<input class='inp' style='margin-left:20px;' id='tel' type="phone">
+			</div>
+		</form>
+	</div>
+
+	<div class="update_photo">
+		<img src="" alt="">
+	</div>
+
+	<!-- jQuery-Cookie -->
+	<script type="text/javascript" src='js/jQuery.cookie.js' ></script>
+	<script type="text/javascript">
+
+	window.onload=function(){
+
+
+		// 检测cookie中是否还包含此用户的信息
+
+		var chat_user = $.cookie('chat_user');
+		console.log(chat_user);
+		var cexp = /\{.*?\}/;
+		chat_user = JSON.parse(cexp.exec(chat_user));
+		try{
+			var user_id = chat_user.u_id;
+		}catch(e){
+			 layer.open({
+			 	shadeClose: false,
+			  	content: '获取个人信息失败'
+			    ,btn: ['确认']
+			    // 当点击确认时
+			    ,yes: function(index){
+			    	location.href='./login.html';
+				}
+			  });
+			 return false;
+		}
+		console.log(user_id);
+		if(! user_id){
+			// 如果未请求到用户数据提醒用户错误信息 并跳转到message页面
+			 layer.open({
+			 	shadeClose: false,
+			  	content: '登录已经过期，请您重新登录'
+			    ,btn: ['确认']
+			    // 当点击确认时
+			    ,yes: function(index){
+			    	location.href='./login.html';
+				}
+			  });
+		}
+
+
+		// 请求用户信息 并绑定修改事件
+		$.ajax({
+			url:host + 'index.php/index/user/user_find',
+			type:'get',
+			dataType:'jsonp',
+			data:{
+				uid: user_id,
+				username:$.cookie('username')
+			},
+			success:function(e){
+				
+				if(e.error == "038"){
+
+					// 接收用户数据
+					user_data = e.msg;
+
+					// 将用户资料存入cookie中
+					// $.cookie('user_detail',user_data);
+					console.log(e.msg);
+
+					// 将查询到的用户信息放入表单中
+					$('#sign').val(user_data.sign);
+					$('#user').val(user_data.user);
+					$('#sex').find('option[value="'+user_data.sex+'"]').attr('selected',true);
+					$('#age').val(user_data.age);
+					$('#address').val(user_data.address);
+					$('#email').val(user_data.email);
+					$('#tel').val(user_data.tel);
+
+					var originMes;
+
+					// 当某个框获取焦点时 立即获得该框的值 作为原始值
+					$('.inp').focus(function(){
+						originMes = $(this).val();
+					});
+
+					// 失去焦点
+					$('.inp').blur(function(e){
+
+						// 判断是否未做出修改
+						if( originMes == $(this).val() ) return false;
+
+						// 发送的数据
+						var update = {};
+						update[$(this).attr('id')] = $(this).val();
+
+						// 失去焦点时 判断是否和原始值相同 不相同 ajax请求修改
+						$.ajax({
+							url:host + 'index.php/index/user/user_update',
+							type:'get',
+							dataType:'jsonp',
+							data:update,
+							success:function(e){
+								console.log(e);
+							}
+						});
+					});
+				}else{
+
+					// 如果未请求到用户数据提醒用户错误信息 并跳转到message页面
+					 layer.open({
+					  	content: e.msg,
+					  	shadeClose: false
+					    ,btn: ['确认']
+					    // 当点击确认时
+					    ,yes: function(index){
+					    	location.href='./message.html';
+						}
+					  });
+				}
+			}
+		});
+
+		// 头像修改事件
+		$('#photo_inp').click(function(){
+
+			// 点击修改后 弹出弹框 供用户剪裁头像			
+			layer.open({
+			  content:'',
+			  style:'width:88%'
+			});
+
+			var imgs = $('<img style="width:100%;" />').attr('src','./images/5.png').addClass('updatingPhoto').attr('id','updatingPhoto');
+
+			$('.layui-m-layercont').append(imgs).append($(' \
+				<p style="position:absolute;bottom:-3px;overflow:hidden;height:50px;width:calc( 100% - 60px );" > \
+					<a class="updatePhotoBtn allow-updatePhoto" href="javascript:void(0)" >确认</a> \
+					<a class="updatePhotoBtn cancal-updatePhoto" href="javascript:void(0)" >取消</a> \
+				</p> \
+			  '));
+
+			// 解决layer or cropper的resize问题 貌似只有触发一次resize事件才能适配
+			setTimeout(function(){
+
+				// cropper
+				var cropData = null;
+				$('#updatingPhoto').cropper({
+				  crop: function(data) {
+				  	cropData = data;
+				  }
+				});
+				$(window).resize();
+
+				// 绑定剪裁事件
+				$('.allow-updatePhoto').bind('click',function(){
+
+
+
+					// 获取剪裁区域
+					var dataURL = $('#updatingPhoto').cropper("getCroppedCanvas");
+					var imgurl = dataURL.toDataURL("image/jpeg", 0.1);
+					
+					console.log('end');
+
+				});
+
+				// 绑定取消事件
+				$('.cancal-updatePhoto').bind('click',function(){
+					// 点击取消 关闭修改头像的弹层
+					$('.layui-m-layershade').trigger('click');
+				});
+
+			},300);
+
+			
+
+		});
+	}
+
+	</script>
+</body>
+</html>
