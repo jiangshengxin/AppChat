@@ -151,6 +151,7 @@
 <!-- login.js 文件 -->
 <script type='text/javascript' src='js/login.js' ></script>
 <script>
+
 	$('#login_add').click(function () {
 	    $('#login_add_d').show();
 		$('#username').attr('placeholder','你要注册的用户名');
@@ -173,25 +174,28 @@
 		{
 		    start['submit'] = true;
             $.ajax({
-                url:host+'index.php/index/login/user_login',
+                url:host+'index.php/index/Login/user_login',
                 dataType:'jsonp',
                 data:obj,
                 success:function (e) {
+
                     start['submit'] = false;
+
                     if(e.error=='006')
                     {
-                    	//登录成功后，将用户username存入cookie当中 - 存活时间为1天
-						$.cookie('username',obj['username'],{expires:1,path:'/'});
-
+                    	// 存贮username
+                    	$.cookie('username',obj['username'],60*24);
                         location.href='message.html';
-
-                    }else if(e.error == '004'){
+                        
+                    }else if(e.error == '004')
+                    {
                     	layer.open({
 						    content: '账户不存在'
 						    ,skin: 'msg'
 						    ,time: 2 
 						  });
-                    }else if(e.error == '007'){
+                    }else if(e.error == '007')
+                    {
                     	//询问是否充值
 						  layer.open({
 						    content: e.msg
