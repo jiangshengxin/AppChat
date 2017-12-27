@@ -120,49 +120,13 @@
 
 	window.onload=function(){
 
-
-		// 检测cookie中是否还包含此用户的信息
-
-		var chat_user = $.cookie('chat_user');
-		console.log(chat_user);
-		var cexp = /\{.*?\}/;
-		chat_user = JSON.parse(cexp.exec(chat_user));
-		try{
-			var user_id = chat_user.u_id;
-		}catch(e){
-			 layer.open({
-			 	shadeClose: false,
-			  	content: '获取个人信息失败'
-			    ,btn: ['确认']
-			    // 当点击确认时
-			    ,yes: function(index){
-			    	location.href='./login.html';
-				}
-			  });
-			 return false;
-		}
-		console.log(user_id);
-		if(! user_id){
-			// 如果未请求到用户数据提醒用户错误信息 并跳转到message页面
-			 layer.open({
-			 	shadeClose: false,
-			  	content: '登录已经过期，请您重新登录'
-			    ,btn: ['确认']
-			    // 当点击确认时
-			    ,yes: function(index){
-			    	location.href='./login.html';
-				}
-			  });
-		}
-
-
 		// 请求用户信息 并绑定修改事件
 		$.ajax({
 			url:host + 'index.php/index/user/user_find',
 			type:'get',
 			dataType:'jsonp',
 			data:{
-				uid: user_id,
+				uid: 0,
 				username:$.cookie('username')
 			},
 			success:function(e){
@@ -172,10 +136,6 @@
 					// 接收用户数据
 					user_data = e.msg;
 
-					// 将用户资料存入cookie中
-					// $.cookie('user_detail',user_data);
-					console.log(e.msg);
-
 					// 将查询到的用户信息放入表单中
 					$('#sign').val(user_data.sign);
 					$('#user').val(user_data.user);
@@ -184,6 +144,9 @@
 					$('#address').val(user_data.address);
 					$('#email').val(user_data.email);
 					$('#tel').val(user_data.tel);
+
+					// 将用户信息存入localstorage
+					localStorage.setItem('user_details',user_data);
 
 					var originMes;
 
@@ -262,14 +225,10 @@
 				// 绑定剪裁事件
 				$('.allow-updatePhoto').bind('click',function(){
 
-
-
 					// 获取剪裁区域
 					var dataURL = $('#updatingPhoto').cropper("getCroppedCanvas");
 					var imgurl = dataURL.toDataURL("image/jpeg", 0.1);
 					
-					console.log('end');
-
 				});
 
 				// 绑定取消事件
