@@ -13,15 +13,31 @@ class Exam
     public $data;
     public $user;
     public $return;
+
+    // 允许跨源访问的域
+    const allow_origin =  array(
+        'http://app.hanfu8.top',
+    	'http://localhost'
+    );
+
+    // 允许跨域的源访问的方法
+    const cross_domain = array(
+	'update_pic'	
+    );
+
+
     /*
      * 构造函数
      * */
     public function __construct()
-    {
+    {      
         //接值
         $this->data = Request::instance()->get();
         //调用验证登录方法
         $this->login_state();
+
+	//跨域检测
+	$this->origin_check();
     }
 
     //析构
@@ -48,6 +64,17 @@ class Exam
         }else
         {
             $this->user = $reg;
+        }
+    }
+
+    // 跨域检测
+    private function origin_check(){
+        if( in_array(request()->action(),self::cross_domain) ){
+                $origin = $_SERVER['HTTP_ORIGIN'];
+                if(in_array($origin,self::allow_origin)){
+                        header("Access-Control-Allow-Origin: ".$origin);
+                        header('Access-Control-Allow-Methods: GET,POST');
+                }
         }
     }
 
